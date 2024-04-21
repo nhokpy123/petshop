@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pet Shop | Contact</title>
+<meta charset="iso-8859-1">
+{% comment %} css {% endcomment %}
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie6.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie7.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/style.css' %}">
+
+<script type='text/javascript'>
+  var user = '{{request.user}}'
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script>
+
+</head>
+<body>
+  <div id="header"> <a href="{% url 'index' %}" id="logo"><img src="{% static 'app/images/logo.gif' %}" width="310" height="114" alt=""></a>
+    <ul class="navigation">
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'petmart' %}">Shop</a></li>
+      {% comment %} <li><a href="{% url 'about' %}">About Us</a></li> {% endcomment %}
+      <li><a href="{% url 'contact' %}">Hotline</a></li>
+      <div style ="visibility": {{user_not_login}}>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      </div>
+      <div style ="visibility": {{user_login}}>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </div>
+      <div class='form-inline my-2 my-lg-0'>
+        <a href="{% url 'cart' %}">__<img style="width:32px;height:32px;" src="{% static 'app/images/cart.png' %}"></a>
+      </div>
+    </ul>
+</div>
+<div id="body">
+  <div id="content">
+    <div class="content">
+      <h2>Contact us</h2>
+      <div>
+        <p> This website template has been designed by free website templates for you, free. You can replace all this text with your own text. You can remove any link to our website from this website template, you're free to use this website template without linking back to us. If you're having problems editing this website template, then don't hesitate to ask for help on the forum </p>
+      </div>
+      <ul class="connect">
+        <li>
+          <h2>Customer Sales and Serevice</h2>
+          <p> <span>E-mail: <a href="#">phi101066@donga.edu.vn</a></span>  </p>
+          <p> <span>Call toll-free: 0368574948</span> <span>Call toll-free: 866 000 0000</span> <span>Call toll-free: 877 000 0000</span> </p>
+        </li>
+        <li>
+          <h2>Store Hours</h2>
+          <p> <span>all day for week about 9:00 am - 7:00 pm)</span> <span>Closed holidays</span> </p>
+        </li>
+        <li>
+          <h2>Mailing Address</h2>
+          <p> <span>Petshop</span> <span>100 Xo Viet Nghe Tinh</span> <span>all Floor</span> </p>
+        </li>
+      </ul>
+    </div>
+    <div id="sidebar">
+      <div class="connect">
+        <h2>Follow Us</h2>
+        <ul>
+          <li><a class="facebook" href="https://web.facebook.com/profile.php?id=61551248721704&locale=vi_VN">Facebook</a></li>
+          <li><a class="subscribe" href="https://www.youtube.com/channel/UClI1bMXhm1cfTLU5DL_CH7w">Subscribe</a></li>
+          <li><a class="twitter" href="https://twitter.com/pithegioi">Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="featured">
+    <ul>
+      <li><a href="#"><img src="{% static "app/images/organic-and-chemical-free.jpg" %}" width="300" height="90" alt=""></a></li>
+      <li><a href="#"><img src="{% static "app/images/good-food.jpg" %}" width="300" height="90" alt=""></a></li>
+      <li class="last"><a href="#"><img src="{% static "app/images/pet-grooming.jpg" %}" width="300" height="90" alt=""></a></li>
+    </ul>
+  </div>
+</div>
+<div id="footer">
+  <div class="section">
+    <ul>
+      <li> <img src="{% static "app/images/friendly-pets.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">Friendly Pets</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diam nonummy nib. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li> <img src="{% static "app/images/pet-lover2.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">How dangerous are they</a></h2>
+        <p> Lorem ipsum dolor sit amet, cons ectetuer adepis cing, sed diam euis. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li> <img src="{% static "app/images/healthy-dog.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">Keep them healthy</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diam nonu mmy. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li>
+        <h2><a href="#">Love...love...love...pets</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diameusim. <a class="more" href="#">Read More</a> </p>
+        <img src="{% static "app/images/pet-lover.jpg" %}" width="240" height="186" alt=""> </li>
+    </ul>
+  </div>
+  <div id="footnote">
+    <div class="section">Copyright &copy; 2012 <a href="#">Company Name</a> All rights reserved | Website Template By <a target="_blank" href="http://www.freewebsitetemplates.com/">freewebsitetemplates.com</a></div>
+  </div>
+</div>
+</body>
+</html>

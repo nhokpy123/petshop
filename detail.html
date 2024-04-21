@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<title>Pet Shop | Detail</title>
+<meta charset="iso-8859-1">
+{% comment %} css {% endcomment %}
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie6.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie7.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/style.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/detail.css' %}">
+{% comment %} js {% endcomment %}
+
+<script type='text/javascript'>
+  var user = '{{request.user}}'
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script>
+</head>
+
+<body>
+  <div id="header"> <a href="{% url 'index' %}" id="logo"><img src="{% static 'app/images/logo.gif' %}" width="310" height="114" alt=""></a>
+    {% comment %} <ul class="navigation">
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'petmart' %}">Shop</a></li>
+      <li><a href="{% url 'contact' %}">Hotline</a></li>
+      <div style ="visibility": {{user_not_login}}>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      </div>
+      <div style ="visibility": {{user_login}}>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </div>
+      <div class='form-inline my-2 my-lg-0'>
+        <a href="{% url 'cart' %}">__<img style="width:32px;height:32px;" src="{% static 'app/images/cart.png' %}"></a>
+      </div>
+    </ul> {% endcomment %}
+</div>
+<div id="body">
+  <div id="content">
+    <form class="search" method=POST action ="{% url 'search' %}">
+      {% csrf_token %}
+      <input type="text" name="searched">
+      <button>&nbsp;</button>
+      <label for="articles">
+        <input type="radio" id="articles">
+        Articles</label>
+      <label for="products">
+        <input type="radio" id="products" checked>
+        PetMart Products</label>
+      </form>
+    {% comment %} cac san pham tu them vo {% endcomment %}
+    {% for product in products %}
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ product.ImageURL }}" alt="..." /></div>
+                <div class="col-md-6">
+                    <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                    <div class="fs-5 mb-5">
+                        <span class="">Price: {{ product.price }}$</span>
+                    </div>
+                    <p class="lead">{{ product.detail }}</p>
+                    <div class="d-flex">
+                        <button data-product="{{ product.id }}" data-action="them" class="btn btn-outline-dark flex-shrink-0 buy-button update-cart">
+                            Add to cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    {% endfor %}
+    {% comment %} end cac san pham tu them {% endcomment %}
+   
+  <div class="featured">
+    <ul>
+      <li><a href="#"><img src="{% static "app/images/organic-and-chemical-free.jpg" %}" width="300" height="90" alt=""></a></li>
+      <li><a href="#"><img src="{% static "app/images/good-food.jpg" %}" width="300" height="90" alt=""></a></li>
+      <li class="last"><a href="#"><img src="{% static "app/images/pet-grooming.jpg" %}" width="300" height="90" alt=""></a></li>
+    </ul>
+  </div>
+</div>
+<div id="footer">
+  <div class="section">
+    <ul>
+      <li> <img src="{% static "app/images/friendly-pets.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">Friendly Pets</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diam nonummy nib. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li> <img src="{% static "app/images/pet-lover2.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">How dangerous are they</a></h2>
+        <p> Lorem ipsum dolor sit amet, cons ectetuer adepis cing, sed diam euis. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li> <img src="{% static "app/images/healthy-dog.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">Keep them healthy</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diam nonu mmy. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li>
+        <h2><a href="#">Love...love...love...pets</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diameusim. <a class="more" href="#">Read More</a> </p>
+        <img src="{% static "app/images/pet-lover.jpg" %}" width="240" height="186" alt=""> </li>
+    </ul>
+  </div>
+  <div id="footnote">
+    <div class="section">Copyright &copy; 2012 <a href="#">Company Name</a> All rights reserved | Website Template By <a target="_blank" href="http://www.freewebsitetemplates.com/">freewebsitetemplates.com</a></div>
+  </div>
+</div>
+
+{% comment %} js {% endcomment %}
+<script src="{% static 'app/js/cart.js' %}"></script>
+
+
+</body>
+</html>

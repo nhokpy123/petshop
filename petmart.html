@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<title>Pet Shop | PetMart</title>
+<meta charset="iso-8859-1">
+{% comment %} css {% endcomment %}
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie6.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie7.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/style.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/petmart.css' %}">
+{% comment %} js {% endcomment %}
+
+<script type='text/javascript'>
+  var user = '{{request.user}}'
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script>
+</head>
+
+<body>
+  <div id="header"> <a href="{% url 'index' %}" id="logo"><img src="{% static 'app/images/logo.gif' %}" width="310" height="114" alt=""></a>
+    <ul class="navigation">
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'petmart' %}">Shop</a></li>
+      {% comment %} <li><a href="{% url 'about' %}">About Us</a></li> {% endcomment %}
+      <li><a href="{% url 'contact' %}">Hotline</a></li>
+      <div style ="visibility": {{user_not_login}}>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      </div>
+      <div style ="visibility": {{user_login}}>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </div>
+      <div class='form-inline my-2 my-lg-0'>
+        <a href="{% url 'cart' %}">__<img style="width:32px;height:32px;" src="{% static 'app/images/cart.png' %}"></a>
+      </div>
+    </ul>
+</div>
+<div id="body">
+  <div id="content">
+    <form class="search" method=POST action ="{% url 'search' %}">
+      {% csrf_token %}
+      <input type="text" name="searched">
+      <button>&nbsp;</button>
+      <label for="articles">
+        <input type="radio" id="articles">
+        Articles</label>
+      <label for="products">
+        <input type="radio" id="products" checked>
+        PetMart Products</label>
+      </form>
+    {% comment %} cac san pham tu them vo {% endcomment %}
+    <div class="products-container">
+    {% for product in products %}
+      <div class="product-card">
+        <img class="product-image" src="{{ product.ImageURL }}" alt="{{ product.name }}">
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-price">Price: {{ product.price }}$</p>
+        <button data-product="{{ product.id }}" data-action="them" class="buy-button update-cart">Add to cart</button>
+        <a href="{% url 'detail' %}?id={{product.id}}"><button class="buy-button">View Product</button></a>
+      </div>
+    
+    {% endfor %}
+  </div>
+    {% comment %} end cac san pham tu them {% endcomment %}
+   
+  <div class="featured">
+    <ul>
+      <li><a href="#"><img src="{% static "app/images/organic-and-chemical-free.jpg" %}" width="300" height="90" alt=""></a></li>
+      <li><a href="#"><img src="{% static "app/images/good-food.jpg" %}" width="300" height="90" alt=""></a></li>
+      <li class="last"><a href="#"><img src="{% static "app/images/pet-grooming.jpg" %}" width="300" height="90" alt=""></a></li>
+    </ul>
+  </div>
+</div>
+<div id="footer">
+  <div class="section">
+    <ul>
+      <li> <img src="{% static "app/images/friendly-pets.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">Friendly Pets</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diam nonummy nib. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li> <img src="{% static "app/images/pet-lover2.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">How dangerous are they</a></h2>
+        <p> Lorem ipsum dolor sit amet, cons ectetuer adepis cing, sed diam euis. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li> <img src="{% static "app/images/healthy-dog.jpg" %}" width="240" height="186" alt="">
+        <h2><a href="#">Keep them healthy</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diam nonu mmy. <a class="more" href="#">Read More</a> </p>
+      </li>
+      <li>
+        <h2><a href="#">Love...love...love...pets</a></h2>
+        <p> Lorem ipsum dolor sit amet, consectetuer adepiscing elit, sed diameusim. <a class="more" href="#">Read More</a> </p>
+        <img src="{% static "app/images/pet-lover.jpg" %}" width="240" height="186" alt=""> </li>
+    </ul>
+  </div>
+  <div id="footnote">
+    <div class="section">Copyright &copy; 2012 <a href="#">Company Name</a> All rights reserved | Website Template By <a target="_blank" href="http://www.freewebsitetemplates.com/">freewebsitetemplates.com</a></div>
+  </div>
+</div>
+
+{% comment %} js {% endcomment %}
+<script src="{% static 'app/js/cart.js' %}"></script>
+<script src="{% static 'app/js/petmart.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pet Shop | PetMart</title>
+<meta charset="iso-8859-1">
+{% comment %} css {% endcomment %}
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie6.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/ie7.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/style.css' %}">
+<link rel='stylesheet' type='text/css' href="{% static 'app/css/checkout.css' %}">
+
+<script type='text/javascript'>
+  var user = '{{request.user}}'
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script>
+
+</head>
+<body>
+  <div id="header"> <a href="{% url 'index' %}" id="logo"><img src="{% static 'app/images/logo.gif' %}" width="310" height="114" alt=""></a>
+
+  </div>
+<div id="body">
+  <div id="content">
+    <form class="search" method=POST action ="{% url 'search' %}">
+      {% csrf_token %}
+      <input type="text" name="searched">
+      <button>&nbsp;</button>
+      <label for="articles">
+        <input type="radio" id="articles">
+        Articles</label>
+      <label for="products">
+        <input type="radio" id="products" checked>
+        PetMart Products</label>
+      </form>
+      
+    {% comment %} cac san pham tu them vo {% endcomment %}
+    <div class="row" style='width:100%'>
+      <div class="col-lg-6">
+        <div class="box-element" id="form-wrapper">
+          <form id="form">
+            <div id="user-info">
+              <div class="form-field">
+                <input required class="form-control" type="text" name="name" placeholder="Tên">
+              </div>
+              <div class="form-field">
+                <input required class="form-control" type="email" name="email" placeholder="Email">
+              </div>
+            </div>
+            
+            <div id="shipping-info">
+              <hr>
+              <p>Shipping information: </p>
+              <hr>
+              <div class="form-field">
+                <input class="form-control" type="text" name="address" placeholder="Địa chỉ cụ thể">
+              </div>
+              <div class="form-field">
+                <input class="form-control" type="text" name="city" placeholder="Thành phố">
+              </div>
+              <div class="form-field">
+                <input class="form-control" type="text" name="state" placeholder="Phường/huyện">
+              </div>
+              <div class="form-field">
+                <input class="form-control" type="text" name="zipcode" placeholder="Số điện thoại">
+              </div>
+            </div>
+  
+            <hr>
+            <input id="form-button" class="btn btn-success btn-block" type="submit" value="Thanh toán">
+          </form>
+        </div>
+  
+        <br>
+        
+      </div>
+  
+      <div class="col-lg-6">
+        <div class="box-element">
+          <a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+          <hr>
+          <h3>Summary</h3>
+          <hr>
+          {% for item in items %}
+          <div class="cart-row">
+            <div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}"></div>
+            <div style="flex:2"><p>{{item.product.name}}</p></div>
+            <div style="flex:1"><p>{{item.product.price}}$</p></div>
+            <div style="flex:1"><p>{{item.quantity}}</p></div>
+          </div>
+          {% endfor %}
+          <h5>Items:   {{order.get_cart_items}}</h5>
+          <h5>Total:   {{order.get_cart_total}}$</h5>
+        </div>
+      </div>
+    
+    
+    {% comment %} end cac san pham tu them {% endcomment %}
+    
+  </div>
+</div>
+<script src="{% static 'app/js/cart.js' %}"></script>
+
+</body>
+</html>

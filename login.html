@@ -1,0 +1,61 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+  	<title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  {% comment %} css {% endcomment %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static "app/css/login.css" %}">
+	</head>
+	<body class="img js-fullheight" style="background-image: url({% static "app/images/bgr.jpg" %});">
+		{% block register %}
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">LOGIN</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">YOU HAVE AN ACCOUN?</h3>
+		      	<form action="" class="signin-form" method='POST'>
+					{% csrf_token %}
+					<div class="form-group">
+						<input type="text" name='username' class="form-control" placeholder="Tên đăng nhập" required>
+					</div>
+					<div class="form-group">
+						<input type="text" name='password' class="form-control" placeholder="Mật khẩu" required>
+					</div>
+	            <div class="form-group">
+	            	<button type="submit" class="form-control btn btn-primary submit px-3">Login</button>
+	            </div>
+	          </form>
+            <p class="ok">You don't have a accoun? <a href="{% url 'register' %}"
+              class="ok"><u>Sign up here</u></a></p>
+	          <p style="text-align:center" class="ok"><a href="{% url 'index' %}"
+				class="ok"><u>Back shop</u></a></p>
+	          <div class="social d-flex text-center">
+	          	<a href="https://www.facebook.com/" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+	          	<a href="https://mail.google.com/" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Gmail</a>
+	          </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="{% static "app/js/jquery.min.js" %}"></script>
+  <script src="{% static "app/js/popper.js" %}"></script>
+  <script src="{% static "app/js/bootstrap.min.js" %}"></script>
+  <script src="{% static "app/js/main.js" %}"></script>
+  {% endblock register %}
+	</body>
+</html>
+
